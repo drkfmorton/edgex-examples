@@ -20,6 +20,16 @@ spec:
       labels:
         org.edgexfoundry.service: {{.Values.edgex.app.device.rest}}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/os
+                    operator: In
+                    values:
+                      - linux
+      nodeName: edgex-dev-3
       automountServiceAccountToken: false
       containers:
       - name: {{.Values.edgex.app.device.rest}}

@@ -19,6 +19,16 @@ spec:
       labels:
         org.edgexfoundry.service: {{.Values.edgex.app.ekuiper}}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/os
+                    operator: In
+                    values:
+                      - linux
+      nodeName: edgex-dev-3
       automountServiceAccountToken: false
       initContainers:
       - name: prep-volumes
