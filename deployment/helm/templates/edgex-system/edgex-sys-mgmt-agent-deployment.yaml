@@ -20,6 +20,19 @@ spec:
       labels:
         org.edgexfoundry.service: {{.Values.edgex.app.system}}
     spec:
+    {{- if and (eq .Values.edgex.security.enabled true) (eq .Values.edgex.storage.type .Values.edgex.StorageTypes.localpath)}}
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: org.edgexfoundry.service
+                    operator: In
+                    values:
+                      - {{.Values.edgex.app.bootstrapper}}
+                      - {{.Values.edgex.app.secretstoresetup}}
+              topologyKey: "kubernetes.io/hostname"
+    {{- end}}
       automountServiceAccountToken: false
       containers:
       - name: {{.Values.edgex.app.system}}

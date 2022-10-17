@@ -37,6 +37,11 @@ edgex:
     bootstrapper: edgex-security-bootstrapper
     secretstoresetup: edgex-security-secretstore-setup
 
+  # storageTypes defines configuration properties for storage
+  StorageTypes:
+    mountpath: mount-path
+    localpath: local-path
+
   # image defines configuration properties for docker-image-level concerns
   image:
     core:
@@ -306,4 +311,5 @@ edgex:
 
   storage:
     className: ""
+    type: "local-path"
 
