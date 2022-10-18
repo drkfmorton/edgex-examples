@@ -310,6 +310,6 @@ edgex:
         memory: 256Mi
 
   storage:
-    className: ""
-    type: "local-path"
+    className: "local-path"
+    isLocal: true
 
