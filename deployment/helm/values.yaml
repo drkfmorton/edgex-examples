@@ -30,6 +30,7 @@ edgex:
       rest: edgex-device-rest
       onvifcamera: edgex-device-onvif-camera
       usbcamera: edgex-device-usb-camera
+      coap: edgex-device-coap
     ui: edgex-ui
     system: edgex-sys-mgmt-agent
     consul: edgex-core-consul
@@ -86,6 +87,10 @@ edgex:
         repository: nexus3.edgexfoundry.org:10004/device-usb-camera
         tag: "latest"
         pullPolicy: IfNotPresent
+      coap:
+        repository: edgexfoundry/device-coap
+        tag: "2.3.0"
+        pullPolicy: IfNotPresent
     ui:
       repository: edgexfoundry/edgex-ui
       tag: "2.3.0"
@@ -139,6 +144,7 @@ edgex:
       rest: 59986
       usbcamera: 59983
       onvifcamera: 59984
+      coap: 59988
     system: 58890
     ui: 4000
     consul: 8500
@@ -176,6 +182,7 @@ edgex:
       rest: 1
       usbcamera: 0
       onvifcamera: 0
+      coap: 0
     ui: 1
     system: 1
     consul: 1
@@ -189,9 +196,9 @@ edgex:
     runAsUser: 2002
     runAsGroup: 2001
     tlsHost: edgex
-    addConsulRoles: "device-onvif-camera,device-usb-camera"
-    addServiceTokens: "device-rest, device-virtual, device-onvif-camera, device-usb-camera"
-    addKnownSecrets: "redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual],redisdb[device-onvif-camera],redisdb[device-usb-camera]"
+    addConsulRoles: "device-onvif-camera,device-usb-camera,device-coap"
+    addServiceTokens: "device-rest, device-virtual, device-onvif-camera, device-usb-camera, device-coap"
+    addKnownSecrets: "redisdb[app-rules-engine],redisdb[device-rest],redisdb[device-virtual],redisdb[device-onvif-camera],redisdb[device-usb-camera],redisdb[device-coap]"
 
   # resources defines the cpu and memory limits and requests for the respective application
   resources:
@@ -272,6 +279,14 @@ edgex:
           cpu: 0.5
           memory: 256Mi
       onvifcamera:
+        enforceLimits: false
+        limits:
+          cpu: 1
+          memory: 512Mi
+        requests:
+          cpu: 0.5
+          memory: 256Mi
+      coap:
         enforceLimits: false
         limits:
           cpu: 1
